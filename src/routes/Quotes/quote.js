@@ -1,25 +1,33 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import images from './images/images';
-import { addQuote } from './reducer';
+import { addQuote, toggleQuoteLike } from './reducer';
 import './quotes.css';
 const HEART = '❤️️';
 
-export const Quote = ({quote, onQuoteLiked, likedQuotes}) => {
-  const isLiked = likedQuotes.indexOf(quote) > -1;
-  return  <div className="quote">
-      <img className="avatar" src={quote.avatar || images[quote.author]}/>
-      <div className="content">
-        <span className="author">{quote.author}
-          <button
-            onClick={() => onQuoteLiked(quote)}
-            className={`like` + (isLiked ? ' active' : '') }>
-              {isLiked && HEART} Like
-          </button>
-        </span>
-        <span className="text">{quote.text}</span>
-    </div>
-  </div>;
+@connect((state, props) => ({
+  isLiked: state.quotes.likes.indexOf(props.quote) > -1
+}))
+export class Quote extends React.Component {
+  onQuoteLiked = () => {
+    this.props.dispatch(toggleQuoteLike(this.props.quote));
+  }
+
+  render() {
+    return  <div className="quote">
+        <img className="avatar" src={this.props.quote.avatar || images[this.props.quote.author]}/>
+        <div className="content">
+          <span className="author">{this.props.quote.author}
+            <button
+              onClick={() => this.onQuoteLiked()}
+              className={`like` + (this.props.isLiked ? ' active' : '') }>
+                {this.props.isLiked && HEART} Like
+            </button>
+          </span>
+          <span className="text">{this.props.quote.text}</span>
+      </div>
+    </div>;
+  }
 }
 
 @connect()
@@ -34,8 +42,6 @@ export class NewQuoteForm extends React.Component {
       text:  this.quoteInput.value,
       avatar:  this.avatarInput.value
     }
-
-    console.log(addQuote(newQuote));
 
     this.props.dispatch(addQuote(newQuote));
   }
