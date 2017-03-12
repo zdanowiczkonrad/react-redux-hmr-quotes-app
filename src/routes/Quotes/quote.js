@@ -1,12 +1,12 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import images from './images/images';
-import { addQuote, toggleQuoteLike } from './reducer';
+import { addQuote, toggleQuoteLike, isLiked } from './reducer';
 import './quotes.css';
 const HEART = '❤️️';
 
 @connect((state, props) => ({
-  isLiked: state.quotes.likes.indexOf(props.quote) > -1
+  isLiked: isLiked(state, props.quote)
 }))
 export class Quote extends React.Component {
   onQuoteLiked = () => {
