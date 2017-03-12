@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
 import images from './images/images';
+import { addQuote } from './reducer';
 import './quotes.css';
 const HEART = '❤️️';
 
@@ -20,6 +22,7 @@ export const Quote = ({quote, onQuoteLiked, likedQuotes}) => {
   </div>;
 }
 
+@connect()
 export class NewQuoteForm extends React.Component {
   authorInput;
   quoteInput;
@@ -32,7 +35,9 @@ export class NewQuoteForm extends React.Component {
       avatar:  this.avatarInput.value
     }
 
-    this.props.onQuoteAdded(newQuote);
+    console.log(addQuote(newQuote));
+
+    this.props.dispatch(addQuote(newQuote));
   }
 
   render() {
