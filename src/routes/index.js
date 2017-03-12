@@ -10,7 +10,7 @@ import QuotesRoute from './Quotes';
 export const createRoutes = (store) => ({
   path        : '/',
   component   : CoreLayout,
-  indexRoute  : Home,
+  indexRoute  : QuotesRoute(store),
   childRoutes : [
     CounterRoute(store),
     QuotesRoute(store)

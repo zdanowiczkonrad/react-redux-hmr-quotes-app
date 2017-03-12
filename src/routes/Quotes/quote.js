@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import images from './images/images';
 import './quotes.css';
+const HEART = '❤️️';
 
 export const Quote = ({quote, onQuoteLiked, likedQuotes}) => {
   const isLiked = likedQuotes.indexOf(quote) > -1;
@@ -11,7 +12,7 @@ export const Quote = ({quote, onQuoteLiked, likedQuotes}) => {
           <button
             onClick={() => onQuoteLiked(quote)}
             className={`like` + (isLiked ? ' active' : '') }>
-              {isLiked && '❤️️'} Like
+              {isLiked && HEART} Like
           </button>
         </span>
         <span className="text">{quote.text}</span>

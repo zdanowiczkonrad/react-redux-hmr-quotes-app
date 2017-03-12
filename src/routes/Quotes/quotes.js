@@ -9,9 +9,11 @@ export default class Quotes extends React.Component {
         const { all } = this.props.quotes;
         console.log('all', all);
         console.log(this.props.quotes);
-        return <div>
+        return <div style={{background: 'white', padding: '10px 0'}}>
+            <h1>My cool quotes with Redux</h1>
+             <NewQuoteForm/>
             {all.map(quote => <Quote quote={quote} onQuoteLiked={() => {}} likedQuotes={[]}/>)}
-        <NewQuoteForm/>
+       
         </div>;
     }
 }
